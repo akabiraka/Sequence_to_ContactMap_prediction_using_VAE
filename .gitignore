@@ -131,3 +131,4 @@ dmypy.json
 *.cif
 *.csv
 *.jnlp
+*.~lock.*
