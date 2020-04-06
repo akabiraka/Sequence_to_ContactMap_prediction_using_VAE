@@ -40,7 +40,6 @@ class PDBConverter(object):
                 self.save(dist_matrices[i], filename,
                           self.distance_matrices_dir)
                 self.save(contact_maps[i], filename, self.contact_maps_dir)
-
                 img = self.read(filename, self.contact_maps_dir)
                 plt.imshow(img)
                 plt.show()
