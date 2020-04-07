@@ -25,9 +25,9 @@ class PDBConverter(object):
         self.parser = MMCIFParser()
 
     def do(self):
-        # self.download()
+        self.download()
         self.convert_into_distmatrices_contactmaps()
-        # self.convert_into_fasta()
+        self.convert_into_fasta()
 
     def download(self):
         for identifier in self.pdb_identifiers:
@@ -98,6 +98,7 @@ class PDBConverter(object):
 
     def get_pdb_identifiers(self, file):
         file_content = open(file).read()
+        file_content = file_content.lower()
         return file_content.split()
 
     def view(self, filename):
@@ -114,7 +115,7 @@ class PDBConverter(object):
             plt.subplot(rows, cols, index)
             plt.imshow(images[i])
             if titles is not None:
-                plt.title(str(titles[i]))
+                plt.title(img_name + ": " + str(titles[i]))
             plt.xticks([])
             plt.yticks([])
         plt.show()
