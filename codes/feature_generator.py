@@ -29,9 +29,8 @@ class FeatureGenerator(object):
             numeric = self.__seq_2_numeric(seq)
             one_hot_tensor = F.one_hot(torch.tensor(numeric),
                                        num_classes=self.n_aaletters)
-            print(pdb_code, ": ", one_hot_tensor.shape)
-            Utility.save_tensor(
-                one_hot_tensor, CONSTANTS.FEATURE_DIR, pdb_code)
+            print(pdb_code + ": ", one_hot_tensor.shape)
+            Utility.save_one_hot_tensor(one_hot_tensor, pdb_code)
 
     def __get_sequence(self, records):
         seq = ""
