@@ -133,3 +133,4 @@ dmypy.json
 *.jnlp
 *.~lock.*
 *.fasta
+*.pt
