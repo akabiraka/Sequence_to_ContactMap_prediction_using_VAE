@@ -7,6 +7,7 @@ from Bio.PDB import *
 from Bio import SeqIO
 
 import constants as CONSTANTS
+import utility as Utility
 
 
 class PDBConverter(object):
@@ -48,10 +49,9 @@ class PDBConverter(object):
             dist_matrix = self.compute_distance_matrix(
                 aa_residues, aa_residues)
             contact_map = np.where(dist_matrix < self.threshhold, 1, 0)
-            filename = self.pdb_code + "_" + str(0) + CONSTANTS.CSV_EXT
-            self.save(dist_matrix, filename,
-                      CONSTANTS.DISTANCE_MATRIX_DIR)
-            self.save(contact_map, filename, CONSTANTS.CONTACT_MAP_DIR)
+            filename = self.pdb_code + CONSTANTS.CSV_EXT
+            Utility.save_distance_matrix(dist_matrix, self.pdb_code)
+            Utility.save_contact_map(contact_map, self.pdb_code)
             self.view(filename)
 
     def convert_into_fasta(self):
@@ -89,9 +89,6 @@ class PDBConverter(object):
                 non_aa.append(i.get_resname())
                 non_aa_residues.append(i)
         return aa_residues, non_aa_residues
-
-    def save(self, matrix, filename, path):
-        np.savetxt(path + filename, matrix, delimiter=',')
 
     def read(self, filename, path):
         return np.loadtxt(path + filename, delimiter=',')

@@ -24,5 +24,5 @@ AMINO_ACID_20 = ['A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K',
                  'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V',
                  'W', 'Y']
 
-# filename padding
-_ONE_HOT = "_one_hot"
+# feature padding name
+ONE_HOT_ = "_one_hot"
