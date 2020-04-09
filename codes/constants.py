@@ -1,4 +1,6 @@
 
+WINDOW_SIZE = 28
+
 # directories
 PDB_DIR = "../pdbs/"
 DISTANCE_MATRIX_DIR = "../distance_matrices/"
