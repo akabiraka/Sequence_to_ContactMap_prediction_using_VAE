@@ -106,10 +106,10 @@ class BasicVAE1(nn.Module):
 
     def forward(self, x):
         x = self.fc1(x)
-        print("occurance matric:", x.size())
+        # print("occurance matric:", x.size())
         mu, logvar = self.encode(x)
         z = self.reparametrize(mu, logvar)
-        print("z:", z.size())
+        # print("z:", z.size())
         decoded = self.decode(z)
-        print("decoded:", decoded.size())
+        # print("decoded:", decoded.size())
         return decoded, mu, logvar
