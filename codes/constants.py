@@ -29,3 +29,6 @@ AMINO_ACID_20 = ['A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K',
 
 # feature padding name
 ONE_HOT_ = "_one_hot"
+
+# input files
+train_file = '../inputs/train.txt'
