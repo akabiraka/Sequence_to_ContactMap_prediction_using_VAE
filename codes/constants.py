@@ -1,5 +1,6 @@
 
-WINDOW_SIZE = 28
+WINDOW_SIZE = 32
+WINDOW_STRIDE = 32
 
 # directories
 PDB_DIR = "../pdbs/"
