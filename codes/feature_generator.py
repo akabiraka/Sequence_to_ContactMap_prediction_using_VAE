@@ -13,14 +13,17 @@ class FeatureGenerator(object):
     def __init__(self):
         super(FeatureGenerator, self).__init__()
 
-        self.pdb_identifies_file = '../inputs/pdb_identifiers.txt'
-        self.pdb_identifiers = Utility.get_pdb_identifiers(
-            self.pdb_identifies_file)
+        pdb_identifies_file = CONSTANTS.ALL_PDB_IDS
+        self.pdb_identifiers = Utility.get_pdb_identifiers(pdb_identifies_file)
         self.AALetters = CONSTANTS.AMINO_ACID_20
         self.n_aaletters = len(self.AALetters)
         self.AA_c2i_dict, self.AA_i2c_dict = self.__get_amino_acid_seq_dict()
 
     def one_hot(self):
+        """
+        Generate one-hot tensor feature for each pdb id.
+        size of each feature: [seq_len x n_amino_acid], i.e. [100 x 20]
+        """
         for pdb_code in self.pdb_identifiers:
             filename = CONSTANTS.FASTA_DIR + pdb_code + CONSTANTS.FASTA_EXT
             file = open(filename)
@@ -33,12 +36,18 @@ class FeatureGenerator(object):
             Utility.save_one_hot_tensor(one_hot_tensor, pdb_code)
 
     def __get_sequence(self, records):
+        """
+        returns all amino acid sequence by concatenating all chains
+        """
         seq = ""
         for record in records:
             seq += record.seq
         return seq
 
     def __get_amino_acid_seq_dict(self):
+        """
+        returns two directories, char2Int and int2Char mapping
+        """
         char2Int = {}
         int2Char = {}
         for i, char in enumerate(self.AALetters):
@@ -47,6 +56,9 @@ class FeatureGenerator(object):
         return char2Int, int2Char
 
     def __seq_2_numeric(self, seq):
+        """
+        returns seq to numeric mapping
+        """
         numeric = []
         for i, letter in enumerate(seq):
             if letter not in self.AA_c2i_dict:
