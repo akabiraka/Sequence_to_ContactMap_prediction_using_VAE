@@ -2,6 +2,8 @@ import numpy as np
 import math
 import torch
 import matplotlib.pyplot as plt
+import pickle
+
 from constants import *
 
 
@@ -61,3 +63,14 @@ def plot_images(images, img_name, titles=None, cols=3):
         plt.xticks([])
         plt.yticks([])
     plt.show()
+
+
+def save_itemlist(itemlist, file):
+    with open(file, 'w') as f:
+        for item in itemlist:
+            f.write("%s\n" % item)
+
+
+def write_to_log(data):
+    with open(LOG_FILE, "a") as log_file:
+        log_file.writelines(data)

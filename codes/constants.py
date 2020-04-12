@@ -31,4 +31,11 @@ AMINO_ACID_20 = ['A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K',
 ONE_HOT_ = "_one_hot"
 
 # input files
-train_file = '../inputs/train.txt'
+ALL_PDB_IDS = '../inputs/dncon_pdb_identifiers.txt'
+# ALL_PDB_IDS = '../inputs/pdb_identifiers.txt'
+DEFECTED_PDB_IDS = '../inputs/defected_pdb_ids.txt'
+TRAIN_FILE = '../inputs/train.txt'
+VAL_FILE = '../inputs/val.txt'
+TEST_FILE = '../inputs/test.txt'
+
+LOG_FILE = "../outputs/running_log.txt"
