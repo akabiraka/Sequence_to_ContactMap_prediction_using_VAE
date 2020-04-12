@@ -16,9 +16,8 @@ class PDBConverter(object):
     def __init__(self):
         super(PDBConverter, self).__init__()
 
-        self.pdb_identifies_file = '../inputs/pdb_identifiers.txt'
-        self.pdb_identifiers = self.get_pdb_identifiers(
-            self.pdb_identifies_file)
+        pdb_identifies_file = CONSTANTS.ALL_PDB_IDS
+        self.pdb_identifiers = self.get_pdb_identifiers(pdb_identifies_file)
         self.pdb_code = '2blq'
         self.threshhold = 12.0
 
@@ -31,12 +30,22 @@ class PDBConverter(object):
         self.convert_into_fasta()
 
     def download(self):
+        """
+        download pdb file from PDB website
+        """
         for identifier in self.pdb_identifiers:
             self.pdb_code = identifier
             self.pdbl.retrieve_pdb_file(
                 self.pdb_code, pdir=CONSTANTS.PDB_DIR, file_format=CONSTANTS.CIF)
 
     def convert_into_distmatrices_contactmaps(self):
+        """
+            convert pdb file to distance matrix and contact maps for some threshhold
+            for amino acid alpha-carbon residues
+
+        """
+        defected_pdb_ids = []
+        all_pdb_lens = []
         for identifier in self.pdb_identifiers:
             self.pdb_code = identifier
             pdb_filename = CONSTANTS.PDB_DIR + self.pdb_code + CONSTANTS.CIF_EXT
@@ -45,16 +54,28 @@ class PDBConverter(object):
             all_residues = structure.get_residues()
             aa_residues, non_aa_residues = self.filter_aa_residues(
                 all_residues)
-            print("======================: ", len(aa_residues))
-            dist_matrix = self.compute_distance_matrix(
-                aa_residues, aa_residues)
+            dist_matrix = np.zeros(
+                (len(aa_residues), len(aa_residues)), np.float)
+            try:
+                dist_matrix = self.compute_distance_matrix(
+                    aa_residues, aa_residues)
+                print("======================: ", len(aa_residues))
+                all_pdb_lens.append(len(aa_residues))
+            except Exception as e:
+                defected_pdb_ids.append(self.pdb_code)
+                continue
             contact_map = np.where(dist_matrix < self.threshhold, 1, 0)
             filename = self.pdb_code + CONSTANTS.CSV_EXT
             Utility.save_distance_matrix(dist_matrix, self.pdb_code)
             Utility.save_contact_map(contact_map, self.pdb_code)
-            self.view(filename)
+            # self.view(filename) # draws dist_matrix, contact_map
+        Utility.save_itemlist(defected_pdb_ids, CONSTANTS.DEFECTED_PDB_IDS)
+        print(all_pdb_lens)
 
     def convert_into_fasta(self):
+        """
+            convert each pdb file to fasta sequence format
+        """
         for identifier in self.pdb_identifiers:
             self.pdb_code = identifier
             from_cif = CONSTANTS.PDB_DIR + self.pdb_code + CONSTANTS.CIF_EXT
@@ -63,10 +84,16 @@ class PDBConverter(object):
             count = SeqIO.write(records, to_fasta, "fasta")
 
     def compute_res_res_distance(self, residue_1, residue_2):
+        """
+        compute distance of two residue's alpha-carbon's coordinates
+        """
         diff_vector = residue_1["CA"].coord - residue_2["CA"].coord
         return np.sqrt(np.sum(diff_vector * diff_vector))
 
     def compute_distance_matrix(self, chain_1, chain_2):
+        """
+        compute distance matrix of two chains
+        """
         dist_matrix = np.zeros((len(chain_1), len(chain_2)), np.float)
         for row, residue_1 in enumerate(chain_1):
             for col, residue_2 in enumerate(chain_2):
@@ -99,11 +126,15 @@ class PDBConverter(object):
         return file_content.split()
 
     def view(self, filename):
+        """
+            draw distance matrix and contact maps
+        """
         img1 = self.read(filename, CONSTANTS.DISTANCE_MATRIX_DIR)
         img2 = self.read(filename, CONSTANTS.CONTACT_MAP_DIR)
         images = [img1, img2]
         titles = ["distance matrix", "contact map"]
-        self.__plot_images(images, filename, titles, cols=2)
+        Utility.plot_images(images, filename, titles, cols=2)
+        # self.__plot_images(images, filename, titles, cols=2)
 
     def __plot_images(self, images, img_name, titles=None, cols=3):
         rows = math.ceil(len(images) / cols)
