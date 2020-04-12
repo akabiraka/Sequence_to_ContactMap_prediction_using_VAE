@@ -59,7 +59,7 @@ class PDBConverter(object):
             try:
                 dist_matrix = self.compute_distance_matrix(
                     aa_residues, aa_residues)
-                print("======================: ", len(aa_residues))
+                print(self.pdb_code, "============: ", len(aa_residues))
                 all_pdb_lens.append(len(aa_residues))
             except Exception as e:
                 defected_pdb_ids.append(self.pdb_code)
