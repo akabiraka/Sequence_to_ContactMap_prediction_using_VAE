@@ -9,6 +9,8 @@ from Bio import SeqIO
 import constants as CONSTANTS
 import utility as Utility
 
+import traceback
+
 
 class PDBConverter(object):
     """docstring for PDBConverter."""
@@ -16,18 +18,18 @@ class PDBConverter(object):
     def __init__(self, file):
         super(PDBConverter, self).__init__()
 
-        pdb_identifies_file = file
-        self.pdb_identifiers = self.get_pdb_identifiers(pdb_identifies_file)
+        self.pdb_identifies_file = file
+        # self.pdb_identifiers = self.get_pdb_identifiers(self.pdb_identifies_file)
         self.pdb_code = '2blq'
         self.threshhold = 12.0
 
         self.min_len = 32
         self.max_len = 300
-        self.keep_n_pdbs = 1000
-        self.view_every = 20
+        self.keep_n_pdbs = 10
+        self.view_every = 3
 
         self.pdbl = PDBList()
-        self.parser = MMCIFParser()
+        self.parser = MMCIFParser(QUIET=True)
         self.aa_3to1 = CONSTANTS.AMINO_ACID_3TO1
 
     def do(self):
@@ -36,6 +38,69 @@ class PDBConverter(object):
         self.convert_into_fasta()
 
     def apply(self):
+        defected_pdbs = []
+        our_pdbs = []
+        pdb_lens = []
+        file_content = open("../inputs_1/pdb_id_list.txt", "r")
+        file_content = open(self.pdb_identifies_file, "r")
+        count = 0
+        for i, line in enumerate(file_content):
+            items_in_a_line = line.split()
+            pdb_code = items_in_a_line[0][:-1].lower()
+            chain_id = items_in_a_line[0][-1]
+            pdb_chain_id = pdb_code + chain_id
+            # print(pdb_code, chain_id)
+            # download
+            self.pdbl.retrieve_pdb_file(
+                pdb_code, pdir=CONSTANTS.PDB_DIR, file_format=CONSTANTS.CIF)
+            # reading pdb file
+            pdb_filename = CONSTANTS.PDB_DIR + pdb_code + CONSTANTS.CIF_EXT
+            # reading whole structure
+            structure = self.parser.get_structure(pdb_code, pdb_filename)
+            models = list(structure.get_models())
+            chains = list(models[0].get_chains())
+            for chain in chains:
+                if chain.id == chain_id:
+                    # print(chain.id, chain_id)
+                    all_residues = list(chain.get_residues())
+                    aa_residues, seq, _ = self.filter_aa_residues(all_residues)
+                    # print(len(all_residues), len(aa_residues), '\n', seq)
+                    n_aa_residues = len(aa_residues)
+                    if n_aa_residues >= self.min_len and n_aa_residues <= self.max_len:
+                        dist_matrix = np.zeros(
+                            (n_aa_residues, n_aa_residues), np.float)
+                        try:
+                            # compute distance matrix
+                            dist_matrix = self.compute_distance_matrix(
+                                aa_residues, aa_residues)
+                            pdb_lens.append(n_aa_residues)
+                            our_pdbs.append(pdb_chain_id)
+                            count += 1
+                            print(count, ",", pdb_code,
+                                  "=====: ", n_aa_residues)
+                        except Exception as e:
+                            defected_pdbs.append(pdb_chain_id)
+                            continue
+                        # compute comtact map based on threshhold
+                        contact_map = np.where(
+                            dist_matrix < self.threshhold, 1, 0)
+                        filename = pdb_chain_id + CONSTANTS.CSV_EXT
+                        # save contact_map and dist_matrix
+                        Utility.save_distance_matrix(dist_matrix, pdb_chain_id)
+                        Utility.save_contact_map(contact_map, pdb_chain_id)
+                        Utility.save_fasta_seq(seq, pdb_chain_id)
+                        # show every contact_map and dist_matrix
+                        if count % self.view_every == 0:
+                            # draws dist_matrix, contact_map
+                            self.view(filename)
+
+            if count == self.keep_n_pdbs:
+                break
+        # save our_pdbs, and defected_pdbs in file
+        Utility.save_itemlist(defected_pdbs, CONSTANTS.DEFECTED_PDB_IDS)
+        Utility.save_itemlist(our_pdbs, CONSTANTS.N_PDB_IDS)
+
+    def apply_pre(self):
         defected_pdbs = []
         our_pdbs = []
         pdb_lens = []
@@ -142,7 +207,24 @@ class PDBConverter(object):
         """
         compute distance of two residue's alpha-carbon's coordinates
         """
-        diff_vector = residue_1["CA"].coord - residue_2["CA"].coord
+        GLY = 'GLY'
+        res_1_name = residue_1.get_resname()
+        res_2_name = residue_2.get_resname()
+        diff_vector = 0.0
+        try:
+            if res_1_name == GLY and res_2_name != GLY:
+                diff_vector = residue_1["CA"].coord - residue_2["CB"].coord
+            elif res_1_name != GLY and res_2_name == GLY:
+                diff_vector = residue_1["CB"].coord - residue_2["CA"].coord
+            elif res_1_name == GLY and res_2_name == GLY:
+                diff_vector = residue_1["CA"].coord - residue_2["CA"].coord
+            else:
+                diff_vector = residue_1["CB"].coord - residue_2["CB"].coord
+        except Exception as e:
+            print("Can not resolve distance: ", res_1_name, res_2_name)
+            traceback.print_exc()
+            raise
+
         return np.sqrt(np.sum(diff_vector * diff_vector))
 
     def compute_distance_matrix(self, chain_1, chain_2):
