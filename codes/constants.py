@@ -51,8 +51,9 @@ AMINO_ACID_3TO1 = {'ALA': 'A',
 ONE_HOT_ = "_one_hot"
 
 # input files
-ALL_PDB_IDS = '../inputs/dncon_pdb_identifiers.txt'
+# ALL_PDB_IDS = '../inputs/dncon_pdb_identifiers.txt'
 # ALL_PDB_IDS = '../inputs/pdb_identifiers.txt'
+ALL_PDB_IDS = "../inputs_1/pdb_id_list.txt"
 N_PDB_IDS = '../inputs/n_pdb_ids.txt'
 DEFECTED_PDB_IDS = '../inputs/defected_pdb_ids.txt'
 TRAIN_FILE = '../inputs/train.txt'
