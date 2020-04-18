@@ -10,7 +10,7 @@ from Bio.PDB import *
 
 def get_pdb_identifiers(file):
     file_content = open(file).read()
-    file_content = file_content.lower()
+    # file_content = file_content.lower()
     return file_content.split()
 
 
