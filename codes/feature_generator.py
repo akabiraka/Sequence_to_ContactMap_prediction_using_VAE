@@ -10,10 +10,10 @@ import constants as CONSTANTS
 class FeatureGenerator(object):
     """docstring for FeatureGenerator."""
 
-    def __init__(self):
+    def __init__(self, file):
         super(FeatureGenerator, self).__init__()
 
-        pdb_identifies_file = CONSTANTS.ALL_PDB_IDS
+        pdb_identifies_file = file
         self.pdb_identifiers = Utility.get_pdb_identifiers(pdb_identifies_file)
         self.AALetters = CONSTANTS.AMINO_ACID_20
         self.n_aaletters = len(self.AALetters)
@@ -25,10 +25,11 @@ class FeatureGenerator(object):
         size of each feature: [seq_len x n_amino_acid], i.e. [100 x 20]
         """
         for pdb_code in self.pdb_identifiers:
-            filename = CONSTANTS.FASTA_DIR + pdb_code + CONSTANTS.FASTA_EXT
-            file = open(filename)
-            records = SeqIO.parse(file, CONSTANTS.FASTA)
-            seq = self.__get_sequence(records)
+            # filename = CONSTANTS.FASTA_DIR + pdb_code + CONSTANTS.FASTA_EXT
+            # file = open(filename)
+            # records = SeqIO.parse(file, CONSTANTS.FASTA)
+            # seq = self.__get_sequence(records)
+            seq = Utility.read_fasta_seq(pdb_code)
             numeric = self.__seq_2_numeric(seq)
             one_hot_tensor = F.one_hot(torch.tensor(numeric),
                                        num_classes=self.n_aaletters)
@@ -41,6 +42,7 @@ class FeatureGenerator(object):
         """
         seq = ""
         for record in records:
+            print(record.seq)
             seq += record.seq
         return seq
 

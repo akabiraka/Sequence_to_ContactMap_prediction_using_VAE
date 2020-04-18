@@ -16,7 +16,6 @@ class VAELoss(nn.Module):
         """
             reconstruction + KL divergence loss
         """
-        print(y_prime.size(), y.size())
         y_prime = y_prime.view(-1, self.w_size * self.w_size)
         y = y.view(-1, self.w_size * self.w_size)
 

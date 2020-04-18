@@ -8,9 +8,9 @@ import utility as Utility
 class DataSpliter(object):
     """docstring for DataSpliter."""
 
-    def __init__(self):
+    def __init__(self, file=CONSTANTS.ALL_PDB_IDS):
         super(DataSpliter).__init__()
-        pdb_identifies_file = CONSTANTS.ALL_PDB_IDS
+        pdb_identifies_file = file
         self.pdb_identifiers = Utility.get_pdb_identifiers(pdb_identifies_file)
 
     def split(self, train_size=.60, val_size=.20):

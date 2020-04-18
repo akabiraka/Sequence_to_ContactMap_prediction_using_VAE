@@ -22,6 +22,8 @@ class ProteinDataset(Dataset):
         return len(self.records)
 
     def __getitem__(self, i):
+        # x, y = self.records[i]
+        # print("from dataset: ", "x:", x.shape, "y:", y.shape)
         return self.records[i]
 
     def generate_input_output_sets(self):

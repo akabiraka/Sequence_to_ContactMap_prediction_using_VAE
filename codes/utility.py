@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import pickle
 
 from constants import *
+from Bio.PDB import *
 
 
 def get_pdb_identifiers(file):
@@ -74,3 +75,15 @@ def save_itemlist(itemlist, file):
 def write_to_log(data):
     with open(LOG_FILE, "a") as log_file:
         log_file.writelines(data)
+
+
+def save_fasta_seq(seq, pdb_code):
+    filename = FASTA_DIR + pdb_code + FASTA_EXT
+    with open(filename, "w") as f:
+        f.write(seq)
+
+
+def read_fasta_seq(pdb_code):
+    filename = FASTA_DIR + pdb_code + FASTA_EXT
+    with open(filename, "r+") as f:
+        return f.read()

@@ -13,21 +13,77 @@ import utility as Utility
 class PDBConverter(object):
     """docstring for PDBConverter."""
 
-    def __init__(self):
+    def __init__(self, file):
         super(PDBConverter, self).__init__()
 
-        pdb_identifies_file = CONSTANTS.ALL_PDB_IDS
+        pdb_identifies_file = file
         self.pdb_identifiers = self.get_pdb_identifiers(pdb_identifies_file)
         self.pdb_code = '2blq'
         self.threshhold = 12.0
 
+        self.min_len = 32
+        self.max_len = 300
+        self.keep_n_pdbs = 1000
+        self.view_every = 20
+
         self.pdbl = PDBList()
         self.parser = MMCIFParser()
+        self.aa_3to1 = CONSTANTS.AMINO_ACID_3TO1
 
     def do(self):
         self.download()
         self.convert_into_distmatrices_contactmaps()
         self.convert_into_fasta()
+
+    def apply(self):
+        defected_pdbs = []
+        our_pdbs = []
+        pdb_lens = []
+        i = 0
+        for pdb_code in self.pdb_identifiers:
+            # download
+            self.pdbl.retrieve_pdb_file(
+                pdb_code, pdir=CONSTANTS.PDB_DIR, file_format=CONSTANTS.CIF)
+            # reading pdb file
+            pdb_filename = CONSTANTS.PDB_DIR + pdb_code + CONSTANTS.CIF_EXT
+            structure = self.parser.get_structure(pdb_code, pdb_filename)
+            # getting all residues
+            all_residues = structure.get_residues()
+            # only amino acid residues
+            aa_residues, seq, _ = self.filter_aa_residues(all_residues)
+            n_aa_residues = len(aa_residues)
+            # applying length filter
+            if n_aa_residues >= self.min_len and n_aa_residues <= self.max_len:
+                dist_matrix = np.zeros(
+                    (n_aa_residues, n_aa_residues), np.float)
+                try:
+                    # compute distance matrix
+                    dist_matrix = self.compute_distance_matrix(
+                        aa_residues, aa_residues)
+                    print(i, ",", pdb_code, "=====: ", n_aa_residues)
+                    pdb_lens.append(n_aa_residues)
+                    our_pdbs.append(pdb_code)
+                    i += 1
+                except Exception as e:
+                    defected_pdbs.append(pdb_code)
+                    continue
+                # compute comtact map based on threshhold
+                contact_map = np.where(dist_matrix < self.threshhold, 1, 0)
+                filename = pdb_code + CONSTANTS.CSV_EXT
+                # save contact_map and dist_matrix
+                Utility.save_distance_matrix(dist_matrix, pdb_code)
+                Utility.save_contact_map(contact_map, pdb_code)
+                Utility.save_fasta_seq(seq, pdb_code)
+                # show every contact_map and dist_matrix
+                if i % self.view_every == 0:
+                    self.view(filename)  # draws dist_matrix, contact_map
+                # when we will get keep_n_pdbs, break the loop
+                if i == self.keep_n_pdbs:
+                    break
+        # save our_pdbs, and defected_pdbs in file
+        Utility.save_itemlist(defected_pdbs, CONSTANTS.DEFECTED_PDB_IDS)
+        Utility.save_itemlist(our_pdbs, CONSTANTS.N_PDB_IDS)
+        print(pdb_lens)
 
     def download(self):
         """
@@ -66,7 +122,7 @@ class PDBConverter(object):
                 continue
             contact_map = np.where(dist_matrix < self.threshhold, 1, 0)
             filename = self.pdb_code + CONSTANTS.CSV_EXT
-            Utility.save_distance_matrix(dist_matrix, self.pdb_code)
+            # Utility.save_distance_matrix(dist_matrix, self.pdb_code)
             Utility.save_contact_map(contact_map, self.pdb_code)
             # self.view(filename) # draws dist_matrix, contact_map
         Utility.save_itemlist(defected_pdb_ids, CONSTANTS.DEFECTED_PDB_IDS)
@@ -76,10 +132,9 @@ class PDBConverter(object):
         """
             convert each pdb file to fasta sequence format
         """
-        for identifier in self.pdb_identifiers:
-            self.pdb_code = identifier
-            from_cif = CONSTANTS.PDB_DIR + self.pdb_code + CONSTANTS.CIF_EXT
-            to_fasta = CONSTANTS.FASTA_DIR + self.pdb_code + CONSTANTS.FASTA_EXT
+        for pdb_code in self.pdb_identifiers:
+            from_cif = CONSTANTS.PDB_DIR + pdb_code + CONSTANTS.CIF_EXT
+            to_fasta = CONSTANTS.FASTA_DIR + pdb_code + CONSTANTS.FASTA_EXT
             records = SeqIO.parse(from_cif, "cif-atom")
             count = SeqIO.write(records, to_fasta, "fasta")
 
@@ -109,13 +164,17 @@ class PDBConverter(object):
         aa_residues = []
         non_aa_residues = []
         non_aa = []
+        seq = ""
         for i in chain:
             if i.get_resname() in standard_aa_names:
                 aa_residues.append(i)
+                seq += self.aa_3to1[i.get_resname()]
             else:
                 non_aa.append(i.get_resname())
-                non_aa_residues.append(i)
-        return aa_residues, non_aa_residues
+                non_aa_residues.append(i.get_resname())
+        # print(seq)
+        # print(len(seq), len(aa_residues))
+        return aa_residues, seq, non_aa_residues
 
     def read(self, filename, path):
         return np.loadtxt(path + filename, delimiter=',')

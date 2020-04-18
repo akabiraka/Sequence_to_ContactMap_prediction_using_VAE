@@ -1,6 +1,6 @@
 
 WINDOW_SIZE = 32
-WINDOW_STRIDE = 32
+WINDOW_STRIDE = 10
 
 # directories
 PDB_DIR = "../pdbs/"
@@ -26,6 +26,26 @@ AMINO_ACID = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
 AMINO_ACID_20 = ['A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K',
                  'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V',
                  'W', 'Y']
+AMINO_ACID_3TO1 = {'ALA': 'A',
+                   'CYS': 'C',
+                   'ASP': 'D',
+                   'GLU': 'E',
+                   'PHE': 'F',
+                   'GLY': 'G',
+                   'HIS': 'H',
+                   'ILE': 'I',
+                   'LYS': 'K',
+                   'LEU': 'L',
+                   'MET': 'M',
+                   'ASN': 'N',
+                   'PRO': 'P',
+                   'GLN': 'Q',
+                   'ARG': 'R',
+                   'SER': 'S',
+                   'THR': 'T',
+                   'VAL': 'V',
+                   'TRP': 'W',
+                   'TYR': 'Y'}
 
 # feature padding name
 ONE_HOT_ = "_one_hot"
@@ -33,6 +53,7 @@ ONE_HOT_ = "_one_hot"
 # input files
 ALL_PDB_IDS = '../inputs/dncon_pdb_identifiers.txt'
 # ALL_PDB_IDS = '../inputs/pdb_identifiers.txt'
+N_PDB_IDS = '../inputs/n_pdb_ids.txt'
 DEFECTED_PDB_IDS = '../inputs/defected_pdb_ids.txt'
 TRAIN_FILE = '../inputs/train.txt'
 VAL_FILE = '../inputs/val.txt'

@@ -77,20 +77,24 @@ class InputGenerator(object):
         a_input_output_set = []
         all_input_output_set = []
         for i in range(half_width, rows - half_width, self.stride):
-            sub_seq1 = self.format_seq(one_hot_tensor, i -
-                                       half_width, i + half_width)
+            s1_from_idx = i - half_width
+            s1_to_idx = i + half_width
+            sub_seq1 = self.format_seq(one_hot_tensor, s1_from_idx, s1_to_idx)
             for j in range(half_width, rows - half_width, self.stride):
-                # print(i - half_width, i + half_width,
-                #       j - half_width, j + half_width)
-                sub_seq2 = self.format_seq(one_hot_tensor, j -
-                                           half_width, j + half_width)
+                s2_from_idx = j - half_width
+                s2_to_idx = j + half_width
+                sub_seq2 = self.format_seq(
+                    one_hot_tensor, s2_from_idx, s2_to_idx)
+
                 input = torch.cat((sub_seq1, sub_seq2), 1)
                 input.unsqueeze_(0)
                 # print(input.size())
-                out = contact_map_tensor[i - half_width:i +
-                                         half_width, j - half_width:j + half_width]
+                out = contact_map_tensor[s1_from_idx:s1_to_idx,
+                                         s2_from_idx:s2_to_idx]
 
                 out = out.type(torch.float32)
+                # print(s1_from_idx, s1_to_idx, s2_from_idx, s2_to_idx)
+                # print("sub seq: ", sub_seq1.shape, sub_seq2.shape, out.shape)
                 a_input_output_set = [input, out]
                 all_input_output_set.append(a_input_output_set)
             #     break
