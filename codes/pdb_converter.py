@@ -41,7 +41,7 @@ class PDBConverter(object):
         defected_pdbs = []
         our_pdbs = []
         pdb_lens = []
-        file_content = open("../inputs_1/pdb_id_list.txt", "r")
+        # file_content = open("../inputs_1/pdb_id_list.txt", "r")
         file_content = open(self.pdb_identifies_file, "r")
         count = 0
         for i, line in enumerate(file_content):
