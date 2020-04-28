@@ -25,8 +25,8 @@ class PDBConverter(object):
 
         self.min_len = 32
         self.max_len = 300
-        self.keep_n_pdbs = 10
-        self.view_every = 3
+        self.keep_n_pdbs = 400
+        self.view_every = 30
 
         self.pdbl = PDBList()
         self.parser = MMCIFParser(QUIET=True)
@@ -93,14 +93,13 @@ class PDBConverter(object):
                         if count % self.view_every == 0:
                             # draws dist_matrix, contact_map
                             self.view(filename)
-
             if count == self.keep_n_pdbs:
                 break
         # save our_pdbs, and defected_pdbs in file
         Utility.save_itemlist(defected_pdbs, CONSTANTS.DEFECTED_PDB_IDS)
         Utility.save_itemlist(our_pdbs, CONSTANTS.N_PDB_IDS)
 
-    def apply_pre(self):
+    def apply_prev1(self):
         defected_pdbs = []
         our_pdbs = []
         pdb_lens = []
