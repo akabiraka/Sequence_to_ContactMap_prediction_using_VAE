@@ -15,6 +15,7 @@ class ProteinDataset(Dataset):
         super(ProteinDataset, self).__init__()
         pdb_identifies_file = file  # '../inputs/train.txt'  # ../inputs/pdb_identifiers.txt'
         self.pdb_identifiers = Utility.get_pdb_identifiers(pdb_identifies_file)
+        print(len(self.pdb_identifiers), " proteins in hand")
         self.input_generator = InputGenerator()
         self.records = self.generate_input_output_sets()
 
@@ -25,6 +26,9 @@ class ProteinDataset(Dataset):
         # x, y = self.records[i]
         # print("from dataset: ", "x:", x.shape, "y:", y.shape)
         return self.records[i]
+
+    def n_proteins(self):
+        return len(self.pdb_identifiers)
 
     def generate_input_output_sets(self):
         records = []
