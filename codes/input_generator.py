@@ -16,7 +16,7 @@ class InputGenerator(object):
         self.window = CONSTANTS.WINDOW_SIZE
         self.stride = CONSTANTS.WINDOW_STRIDE
 
-    def get_input_output_pre(self, pdb_code):
+    def get_input_output_prev1(self, pdb_code):
         """
         deprecated
             output format:
@@ -69,9 +69,9 @@ class InputGenerator(object):
         """
         one_hot_tensor = Utility.read_one_hot_tensor(pdb_code)
         contact_map_tensor = Utility.read_contact_map_tensor(pdb_code)
-        print(pdb_code + ":",
-              "1-hot size:", one_hot_tensor.shape,
-              "contact-map size:", contact_map_tensor.shape)
+        # print(pdb_code + ":",
+        #       "1-hot size:", one_hot_tensor.shape,
+        #       "contact-map size:", contact_map_tensor.shape)
         rows, cols = one_hot_tensor.shape
         half_width = math.floor(self.window / 2)
         a_input_output_set = []
