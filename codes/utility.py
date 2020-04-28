@@ -53,7 +53,7 @@ def read_contact_map_tensor(pdb_code):
     return read_tensor(CONTACT_MAP_DIR, filename)
 
 
-def plot_images(images, img_name, titles=None, cols=3):
+def plot_images(images, img_name, titles=None, cols=3, save_plt=False):
     rows = math.ceil(len(images) / cols)
     for i in range(len(images)):
         index = i + 1
@@ -63,7 +63,10 @@ def plot_images(images, img_name, titles=None, cols=3):
             plt.title(img_name + ": " + str(titles[i]))
         plt.xticks([])
         plt.yticks([])
-    plt.show()
+    if save_plt:
+        plt.savefig("../output_images/{}.png".format(img_name))
+    else:
+        plt.show()
 
 
 def save_itemlist(itemlist, file):
