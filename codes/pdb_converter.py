@@ -25,8 +25,9 @@ class PDBConverter(object):
 
         self.min_len = 32
         self.max_len = 300
-        self.keep_n_pdbs = 400
-        self.view_every = 30
+        self.keep_n_pdbs = 10
+        self.view_every = 1
+        self.save_plt = False
 
         self.pdbl = PDBList()
         self.parser = MMCIFParser(QUIET=True)
@@ -84,7 +85,7 @@ class PDBConverter(object):
                         # compute comtact map based on threshhold
                         contact_map = np.where(
                             dist_matrix < self.threshhold, 1, 0)
-                        filename = pdb_chain_id + CONSTANTS.CSV_EXT
+                        # filename = pdb_chain_id + CONSTANTS.CSV_EXT
                         # save contact_map and dist_matrix
                         Utility.save_distance_matrix(dist_matrix, pdb_chain_id)
                         Utility.save_contact_map(contact_map, pdb_chain_id)
@@ -92,7 +93,7 @@ class PDBConverter(object):
                         # show every contact_map and dist_matrix
                         if count % self.view_every == 0:
                             # draws dist_matrix, contact_map
-                            self.view(filename)
+                            self.view(pdb_chain_id)
             if count == self.keep_n_pdbs:
                 break
         # save our_pdbs, and defected_pdbs in file
@@ -265,15 +266,17 @@ class PDBConverter(object):
         file_content = file_content.lower()
         return file_content.split()
 
-    def view(self, filename):
+    def view(self, pdb_chain_id):
         """
             draw distance matrix and contact maps
         """
+        filename = pdb_chain_id + CONSTANTS.CSV_EXT
         img1 = self.read(filename, CONSTANTS.DISTANCE_MATRIX_DIR)
         img2 = self.read(filename, CONSTANTS.CONTACT_MAP_DIR)
         images = [img1, img2]
         titles = ["distance matrix", "contact map"]
-        Utility.plot_images(images, filename, titles, cols=2)
+        Utility.plot_images(images, pdb_chain_id, titles,
+                            cols=2, save_plt=self.save_plt)
         # self.__plot_images(images, filename, titles, cols=2)
 
     def __plot_images(self, images, img_name, titles=None, cols=3):
