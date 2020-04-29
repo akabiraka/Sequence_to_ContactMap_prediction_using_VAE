@@ -64,7 +64,8 @@ def plot_images(images, img_name, titles=None, cols=3, save_plt=False):
         plt.xticks([])
         plt.yticks([])
     if save_plt:
-        plt.savefig("../output_images/{}.png".format(img_name))
+        plt.savefig(
+            "../output_images/contact_maps_predicted_real/{}.png".format(img_name))
     else:
         plt.show()
 

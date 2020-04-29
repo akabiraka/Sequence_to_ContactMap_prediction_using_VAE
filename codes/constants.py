@@ -59,5 +59,6 @@ DEFECTED_PDB_IDS = '../inputs/defected_pdb_ids.txt'
 TRAIN_FILE = '../inputs/train.txt'
 VAL_FILE = '../inputs/val.txt'
 TEST_FILE = '../inputs/test.txt'
+# TEST_FILE = '../inputs/test_tiny.txt'
 
 LOG_FILE = "../outputs/running_log.txt"
