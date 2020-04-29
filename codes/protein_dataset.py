@@ -40,3 +40,16 @@ class ProteinDataset(Dataset):
 
         # print(len(records))
         return records
+
+    def generate_input_output_sets_per_protein(self):
+        # records = []
+        per_protein_records = []
+        for identifier in self.pdb_identifiers:
+            pdb_code = identifier
+            inp_out_pairs = self.input_generator.get_input_output(pdb_code)
+            # print(pdb_code, ":", len(inp_out_pairs))
+            # records.extend(inp_out_pairs)
+            per_protein_records.append(inp_out_pairs)
+
+        # print(len(records))
+        return per_protein_records
