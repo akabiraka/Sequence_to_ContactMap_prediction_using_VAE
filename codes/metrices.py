@@ -112,7 +112,7 @@ class Metrices(object):
 
 
 # use 14 or 16
-models = [14, 15, 16]  # theses doing nothing:, 15, 17, 24, 25, 26]
+models = [14, 16]  # theses doing nothing:, 15, 17, 24, 25, 26]
 for model_no in models:
     metrices = Metrices(
         model_path="../output_models/best_model_{}.pth".format(model_no))
@@ -124,7 +124,7 @@ for model_no in models:
     all_recalls = []
     all_f_scores = []
 
-    plt.figure(figsize=(10, 10))
+    plt.figure(figsize=(15, 15))
     plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')
     bar = Bar('Processing proteins:', max=len(pdbs))
     for i, pdb in enumerate(pdbs):
@@ -136,7 +136,7 @@ for model_no in models:
         all_precisions.append(precision), all_recalls.append(
             recall), all_f_scores.append(f_score)
 
-        if i < 27:
+        if i < 30:
             plt.plot(
                 fpr, tpr, label='{}.ROC-{}(AUC = {:.2f})'.format(i + 1, pdb, auc_score))
             plt.legend(loc='lower right')
