@@ -134,3 +134,4 @@ dmypy.json
 *.~lock.*
 *.fasta
 *.pt
+.vscode/
