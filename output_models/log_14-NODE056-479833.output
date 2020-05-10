@@ -1,0 +1,194 @@
+cuda
+BasicVAE1(
+  (fc1): Linear(in_features=64, out_features=20, bias=True)
+  (encoder): Sequential(
+    (0): Conv2d(1, 64, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)
+    (1): LeakyReLU(negative_slope=0.2, inplace=True)
+    (2): Conv2d(64, 128, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)
+    (3): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (4): LeakyReLU(negative_slope=0.2, inplace=True)
+    (5): Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+    (6): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (7): LeakyReLU(negative_slope=0.2, inplace=True)
+    (8): Conv2d(256, 1024, kernel_size=(3, 3), stride=(2, 2), bias=False)
+    (9): LeakyReLU(negative_slope=0.2, inplace=True)
+  )
+  (fc2): Linear(in_features=1024, out_features=512, bias=True)
+  (fc31): Linear(in_features=512, out_features=50, bias=True)
+  (fc32): Linear(in_features=512, out_features=50, bias=True)
+  (decoder): Sequential(
+    (0): ConvTranspose2d(1024, 512, kernel_size=(4, 4), stride=(1, 1), bias=False)
+    (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): ConvTranspose2d(512, 256, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)
+    (4): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (5): ReLU(inplace=True)
+    (6): ConvTranspose2d(256, 128, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)
+    (7): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (8): ReLU(inplace=True)
+    (9): ConvTranspose2d(128, 1, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)
+    (10): Sigmoid()
+  )
+  (fc4): Linear(in_features=50, out_features=512, bias=True)
+  (fc5): Linear(in_features=512, out_features=1024, bias=True)
+  (relu): ReLU()
+)
+batch_size= 40
+n_epochs= 40
+loading training dataset ... ...
+900  proteins in hand
+train dataset len:  308360
+train loader size:  7709
+successfully loaded training dataset ... ...
+loading validation dataset ... ...
+300  proteins in hand
+val dataset len: 111784
+val loader size:  2795
+successfully loaded validation dataset ... ...
+Starting epoch 1/41
+epoch:1/41, train_loss: 30090.7011719
+learning rate:  1e-05
+Starting epoch 2/41
+epoch:2/41, train_loss: 29251.4023438
+learning rate:  1e-05
+Starting epoch 3/41
+epoch:3/41, train_loss: 28676.6484375
+learning rate:  1e-05
+Starting epoch 4/41
+epoch:4/41, train_loss: 28274.7988281
+learning rate:  1e-05
+Starting testing epoch 4/41
+epoch:4/41, val_loss: 28232.5117188
+Updating best val loss: 28232.5117188
+Starting epoch 5/41
+epoch:5/41, train_loss: 28225.9960938
+learning rate:  1e-05
+Starting epoch 6/41
+epoch:6/41, train_loss: 28222.9609375
+learning rate:  1e-05
+Starting epoch 7/41
+epoch:7/41, train_loss: 28221.3007812
+learning rate:  1e-05
+Starting epoch 8/41
+epoch:8/41, train_loss: 28219.7539062
+learning rate:  1e-05
+Starting testing epoch 8/41
+epoch:8/41, val_loss: 28226.7187500
+Updating best val loss: 28226.7187500
+Starting epoch 9/41
+epoch:9/41, train_loss: 28217.8554688
+learning rate:  1e-05
+Starting epoch 10/41
+epoch:10/41, train_loss: 28216.0312500
+learning rate:  1e-05
+Starting epoch 11/41
+epoch:11/41, train_loss: 28214.0937500
+learning rate:  1e-05
+Starting epoch 12/41
+epoch:12/41, train_loss: 28212.1601562
+learning rate:  1e-05
+Starting testing epoch 12/41
+epoch:12/41, val_loss: 28228.7421875
+Starting epoch 13/41
+epoch:13/41, train_loss: 28210.1406250
+learning rate:  1e-05
+Starting epoch 14/41
+epoch:14/41, train_loss: 28208.4296875
+learning rate:  1e-05
+Starting epoch 15/41
+epoch:15/41, train_loss: 28206.7832031
+learning rate:  1e-05
+Starting epoch 16/41
+epoch:16/41, train_loss: 28205.4785156
+learning rate:  1e-05
+Starting testing epoch 16/41
+epoch:16/41, val_loss: 28226.7304688
+Starting epoch 17/41
+epoch:17/41, train_loss: 28204.2480469
+learning rate:  1e-05
+Starting epoch 18/41
+epoch:18/41, train_loss: 28203.2480469
+learning rate:  1e-05
+Starting epoch 19/41
+epoch:19/41, train_loss: 28202.2929688
+learning rate:  1e-05
+Starting epoch 20/41
+epoch:20/41, train_loss: 28201.2558594
+learning rate:  1e-05
+Starting testing epoch 20/41
+epoch:20/41, val_loss: 28226.9355469
+Starting epoch 21/41
+epoch:21/41, train_loss: 28200.4941406
+learning rate:  1e-05
+Starting epoch 22/41
+epoch:22/41, train_loss: 28199.6171875
+learning rate:  1e-05
+Starting epoch 23/41
+epoch:23/41, train_loss: 28198.8730469
+learning rate:  1e-05
+Starting epoch 24/41
+epoch:24/41, train_loss: 28198.2050781
+learning rate:  1e-05
+Starting testing epoch 24/41
+epoch:24/41, val_loss: 28228.0117188
+Starting epoch 25/41
+epoch:25/41, train_loss: 28197.6074219
+learning rate:  1e-05
+Starting epoch 26/41
+epoch:26/41, train_loss: 28196.9707031
+learning rate:  1e-05
+Starting epoch 27/41
+epoch:27/41, train_loss: 28196.3632812
+learning rate:  1e-05
+Starting epoch 28/41
+epoch:28/41, train_loss: 28195.8847656
+learning rate:  1e-05
+Starting testing epoch 28/41
+epoch:28/41, val_loss: 28229.4550781
+Starting epoch 29/41
+epoch:29/41, train_loss: 28195.3652344
+learning rate:  1e-05
+Starting epoch 30/41
+epoch:30/41, train_loss: 28194.9453125
+learning rate:  1e-05
+Starting epoch 31/41
+epoch:31/41, train_loss: 28194.4980469
+learning rate:  1e-05
+Starting epoch 32/41
+epoch:32/41, train_loss: 28194.0722656
+learning rate:  1e-05
+Starting testing epoch 32/41
+epoch:32/41, val_loss: 28228.4492188
+Starting epoch 33/41
+epoch:33/41, train_loss: 28193.6914062
+learning rate:  1e-05
+Starting epoch 34/41
+epoch:34/41, train_loss: 28193.1171875
+learning rate:  1e-05
+Starting epoch 35/41
+epoch:35/41, train_loss: 28192.7285156
+learning rate:  1e-05
+Starting epoch 36/41
+epoch:36/41, train_loss: 28192.0039062
+learning rate:  1e-05
+Starting testing epoch 36/41
+epoch:36/41, val_loss: 28227.5195312
+Starting epoch 37/41
+epoch:37/41, train_loss: 28136.4765625
+learning rate:  1e-05
+Starting epoch 38/41
+epoch:38/41, train_loss: 28078.8437500
+learning rate:  1e-05
+Starting epoch 39/41
+epoch:39/41, train_loss: 28069.9609375
+learning rate:  1e-05
+Starting epoch 40/41
+epoch:40/41, train_loss: 28064.9042969
+learning rate:  1e-05
+Starting testing epoch 40/41
+epoch:40/41, val_loss: 28112.8574219
+Updating best val loss: 28112.8574219
+[30090.701171875, 29251.40234375, 28676.6484375, 28274.798828125, 28225.99609375, 28222.9609375, 28221.30078125, 28219.75390625, 28217.85546875, 28216.03125, 28214.09375, 28212.16015625, 28210.140625, 28208.4296875, 28206.783203125, 28205.478515625, 28204.248046875, 28203.248046875, 28202.29296875, 28201.255859375, 28200.494140625, 28199.6171875, 28198.873046875, 28198.205078125, 28197.607421875, 28196.970703125, 28196.36328125, 28195.884765625, 28195.365234375, 28194.9453125, 28194.498046875, 28194.072265625, 28193.69140625, 28193.1171875, 28192.728515625, 28192.00390625, 28136.4765625, 28078.84375, 28069.9609375, 28064.904296875]
+[28232.51171875, 28226.71875, 28228.7421875, 28226.73046875, 28226.935546875, 28228.01171875, 28229.455078125, 28228.44921875, 28227.51953125, 28112.857421875]
+
+Model: 14, precision: 0.6563771102822711, recall: 0.6237244897959183, f_score: 0.7370007535795027

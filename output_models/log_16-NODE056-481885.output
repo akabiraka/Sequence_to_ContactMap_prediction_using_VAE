@@ -1,0 +1,304 @@
+device= cuda
+batch_size= 40
+n_epochs= 70
+init_lr= 1e-06
+loss=BCE-sum
+BasicVAE1(
+  (fc1): Linear(in_features=64, out_features=20, bias=True)
+  (encoder): Sequential(
+    (0): Conv2d(1, 64, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)
+    (1): LeakyReLU(negative_slope=0.2, inplace=True)
+    (2): Conv2d(64, 128, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)
+    (3): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (4): LeakyReLU(negative_slope=0.2, inplace=True)
+    (5): Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+    (6): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (7): LeakyReLU(negative_slope=0.2, inplace=True)
+    (8): Conv2d(256, 1024, kernel_size=(3, 3), stride=(2, 2), bias=False)
+    (9): LeakyReLU(negative_slope=0.2, inplace=True)
+  )
+  (fc2): Linear(in_features=1024, out_features=512, bias=True)
+  (fc31): Linear(in_features=512, out_features=50, bias=True)
+  (fc32): Linear(in_features=512, out_features=50, bias=True)
+  (decoder): Sequential(
+    (0): ConvTranspose2d(1024, 512, kernel_size=(4, 4), stride=(1, 1), bias=False)
+    (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): ConvTranspose2d(512, 256, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)
+    (4): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (5): ReLU(inplace=True)
+    (6): ConvTranspose2d(256, 128, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)
+    (7): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (8): ReLU(inplace=True)
+    (9): ConvTranspose2d(128, 1, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)
+    (10): Sigmoid()
+  )
+  (fc4): Linear(in_features=50, out_features=512, bias=True)
+  (fc5): Linear(in_features=512, out_features=1024, bias=True)
+  (relu): ReLU()
+)
+loading training dataset ... ...
+900  proteins in hand
+train dataset len:  308360
+train loader size:  7709
+successfully loaded training dataset ... ...
+loading validation dataset ... ...
+300  proteins in hand
+val dataset len: 111784
+val loader size:  2795
+successfully loaded validation dataset ... ...
+Starting epoch 1/71
+epoch:1/71, train_loss: 32117.2968750
+learning rate:  1e-06
+Starting epoch 2/71
+epoch:2/71, train_loss: 31113.1562500
+learning rate:  1e-06
+Starting epoch 3/71
+epoch:3/71, train_loss: 30843.6660156
+learning rate:  1e-06
+Starting epoch 4/71
+epoch:4/71, train_loss: 30459.2968750
+learning rate:  1e-06
+Starting testing epoch 4/71
+epoch:4/71, val_loss: 30169.6269531
+Updating best val loss: 30169.6269531
+Starting epoch 5/71
+epoch:5/71, train_loss: 30059.4472656
+learning rate:  1e-06
+Starting epoch 6/71
+epoch:6/71, train_loss: 29691.7695312
+learning rate:  1e-06
+Starting epoch 7/71
+epoch:7/71, train_loss: 29367.5292969
+learning rate:  1e-06
+Starting epoch 8/71
+epoch:8/71, train_loss: 28768.3925781
+learning rate:  1e-06
+Starting testing epoch 8/71
+epoch:8/71, val_loss: 28766.5000000
+Updating best val loss: 28766.5000000
+Starting epoch 9/71
+epoch:9/71, train_loss: 28726.1738281
+learning rate:  1e-06
+Starting epoch 10/71
+epoch:10/71, train_loss: 28469.1210938
+learning rate:  1e-06
+Starting epoch 11/71
+epoch:11/71, train_loss: 28391.3300781
+learning rate:  1e-06
+Starting epoch 12/71
+epoch:12/71, train_loss: 28323.2421875
+learning rate:  1e-06
+Starting testing epoch 12/71
+epoch:12/71, val_loss: 28260.6562500
+Updating best val loss: 28260.6562500
+Starting epoch 13/71
+epoch:13/71, train_loss: 28246.1074219
+learning rate:  1e-06
+Starting epoch 14/71
+epoch:14/71, train_loss: 28237.0742188
+learning rate:  1e-06
+Starting epoch 15/71
+epoch:15/71, train_loss: 28232.9941406
+learning rate:  1e-06
+Starting epoch 16/71
+epoch:16/71, train_loss: 28231.2675781
+learning rate:  1e-06
+Starting testing epoch 16/71
+epoch:16/71, val_loss: 28235.1152344
+Updating best val loss: 28235.1152344
+Starting epoch 17/71
+epoch:17/71, train_loss: 28230.2480469
+learning rate:  1e-06
+Starting epoch 18/71
+epoch:18/71, train_loss: 28229.5664062
+learning rate:  1e-06
+Starting epoch 19/71
+epoch:19/71, train_loss: 28229.0703125
+learning rate:  1e-06
+Starting epoch 20/71
+epoch:20/71, train_loss: 28228.5937500
+learning rate:  1e-06
+Starting testing epoch 20/71
+epoch:20/71, val_loss: 28232.4882812
+Updating best val loss: 28232.4882812
+Starting epoch 21/71
+epoch:21/71, train_loss: 28227.9746094
+learning rate:  1e-06
+Starting epoch 22/71
+epoch:22/71, train_loss: 28227.5351562
+learning rate:  1e-06
+Starting epoch 23/71
+epoch:23/71, train_loss: 28226.8515625
+learning rate:  1e-06
+Starting epoch 24/71
+epoch:24/71, train_loss: 28226.5664062
+learning rate:  1e-06
+Starting testing epoch 24/71
+epoch:24/71, val_loss: 28231.1093750
+Updating best val loss: 28231.1093750
+Starting epoch 25/71
+epoch:25/71, train_loss: 28225.9257812
+learning rate:  1e-06
+Starting epoch 26/71
+epoch:26/71, train_loss: 28225.3417969
+learning rate:  1e-06
+Starting epoch 27/71
+epoch:27/71, train_loss: 28224.8359375
+learning rate:  1e-06
+Starting epoch 28/71
+epoch:28/71, train_loss: 28224.4316406
+learning rate:  1e-06
+Starting testing epoch 28/71
+epoch:28/71, val_loss: 28231.2578125
+Starting epoch 29/71
+epoch:29/71, train_loss: 28223.9824219
+learning rate:  1e-06
+Starting epoch 30/71
+epoch:30/71, train_loss: 28223.5878906
+learning rate:  1e-06
+Starting epoch 31/71
+epoch:31/71, train_loss: 28223.2109375
+learning rate:  1e-06
+Starting epoch 32/71
+epoch:32/71, train_loss: 28222.6953125
+learning rate:  1e-06
+Starting testing epoch 32/71
+epoch:32/71, val_loss: 28230.5371094
+Updating best val loss: 28230.5371094
+Starting epoch 33/71
+epoch:33/71, train_loss: 28222.3535156
+learning rate:  1e-06
+Starting epoch 34/71
+epoch:34/71, train_loss: 28221.7988281
+learning rate:  1e-06
+Starting epoch 35/71
+epoch:35/71, train_loss: 28221.4628906
+learning rate:  1e-06
+Starting epoch 36/71
+epoch:36/71, train_loss: 28221.0722656
+learning rate:  1e-06
+Starting testing epoch 36/71
+epoch:36/71, val_loss: 28230.8964844
+Starting epoch 37/71
+epoch:37/71, train_loss: 28220.4179688
+learning rate:  1e-06
+Starting epoch 38/71
+epoch:38/71, train_loss: 28220.0292969
+learning rate:  1e-06
+Starting epoch 39/71
+epoch:39/71, train_loss: 28219.5488281
+learning rate:  1e-06
+Starting epoch 40/71
+epoch:40/71, train_loss: 28219.0761719
+learning rate:  1e-06
+Starting testing epoch 40/71
+epoch:40/71, val_loss: 28231.4375000
+Starting epoch 41/71
+epoch:41/71, train_loss: 28218.6875000
+learning rate:  1e-06
+Starting epoch 42/71
+epoch:42/71, train_loss: 28218.0722656
+learning rate:  1e-06
+Starting epoch 43/71
+epoch:43/71, train_loss: 28217.6367188
+learning rate:  1e-06
+Starting epoch 44/71
+epoch:44/71, train_loss: 28217.0664062
+learning rate:  1e-06
+Starting testing epoch 44/71
+epoch:44/71, val_loss: 28231.7851562
+Starting epoch 45/71
+epoch:45/71, train_loss: 28216.3457031
+learning rate:  1e-06
+Starting epoch 46/71
+epoch:46/71, train_loss: 28215.6855469
+learning rate:  1e-06
+Starting epoch 47/71
+epoch:47/71, train_loss: 28215.1699219
+learning rate:  1e-06
+Starting epoch 48/71
+epoch:48/71, train_loss: 28214.6582031
+learning rate:  1e-06
+Starting testing epoch 48/71
+epoch:48/71, val_loss: 28231.3027344
+Starting epoch 49/71
+epoch:49/71, train_loss: 28214.0800781
+learning rate:  1e-06
+Starting epoch 50/71
+epoch:50/71, train_loss: 28213.5546875
+learning rate:  1e-06
+Starting epoch 51/71
+epoch:51/71, train_loss: 28213.0683594
+learning rate:  1e-06
+Starting epoch 52/71
+epoch:52/71, train_loss: 28212.4882812
+learning rate:  1e-06
+Starting testing epoch 52/71
+epoch:52/71, val_loss: 28231.7617188
+Starting epoch 53/71
+epoch:53/71, train_loss: 28211.9472656
+learning rate:  1e-06
+Starting epoch 54/71
+epoch:54/71, train_loss: 28211.4277344
+learning rate:  1e-06
+Starting epoch 55/71
+epoch:55/71, train_loss: 28210.9277344
+learning rate:  1e-06
+Starting epoch 56/71
+epoch:56/71, train_loss: 28210.4921875
+learning rate:  1e-06
+Starting testing epoch 56/71
+epoch:56/71, val_loss: 28231.4687500
+Starting epoch 57/71
+epoch:57/71, train_loss: 28209.9824219
+learning rate:  1e-06
+Starting epoch 58/71
+epoch:58/71, train_loss: 28209.4667969
+learning rate:  1e-06
+Starting epoch 59/71
+epoch:59/71, train_loss: 28209.0429688
+learning rate:  1e-06
+Starting epoch 60/71
+epoch:60/71, train_loss: 28208.5664062
+learning rate:  1e-06
+Starting testing epoch 60/71
+epoch:60/71, val_loss: 28231.2089844
+Starting epoch 61/71
+epoch:61/71, train_loss: 28208.1542969
+learning rate:  1e-06
+Starting epoch 62/71
+epoch:62/71, train_loss: 28207.7441406
+learning rate:  1e-06
+Starting epoch 63/71
+epoch:63/71, train_loss: 28207.3066406
+learning rate:  1e-06
+Starting epoch 64/71
+epoch:64/71, train_loss: 28206.8906250
+learning rate:  1e-06
+Starting testing epoch 64/71
+epoch:64/71, val_loss: 28231.6093750
+Starting epoch 65/71
+epoch:65/71, train_loss: 28206.5605469
+learning rate:  1e-06
+Starting epoch 66/71
+epoch:66/71, train_loss: 28206.1015625
+learning rate:  1e-06
+Starting epoch 67/71
+epoch:67/71, train_loss: 28205.6503906
+learning rate:  1e-06
+Starting epoch 68/71
+epoch:68/71, train_loss: 28205.2753906
+learning rate:  1e-06
+Starting testing epoch 68/71
+epoch:68/71, val_loss: 28231.6757812
+Starting epoch 69/71
+epoch:69/71, train_loss: 28204.9765625
+learning rate:  1e-06
+Starting epoch 70/71
+epoch:70/71, train_loss: 28204.6093750
+learning rate:  1e-06
+[32117.296875, 31113.15625, 30843.666015625, 30459.296875, 30059.447265625, 29691.76953125, 29367.529296875, 28768.392578125, 28726.173828125, 28469.12109375, 28391.330078125, 28323.2421875, 28246.107421875, 28237.07421875, 28232.994140625, 28231.267578125, 28230.248046875, 28229.56640625, 28229.0703125, 28228.59375, 28227.974609375, 28227.53515625, 28226.8515625, 28226.56640625, 28225.92578125, 28225.341796875, 28224.8359375, 28224.431640625, 28223.982421875, 28223.587890625, 28223.2109375, 28222.6953125, 28222.353515625, 28221.798828125, 28221.462890625, 28221.072265625, 28220.41796875, 28220.029296875, 28219.548828125, 28219.076171875, 28218.6875, 28218.072265625, 28217.63671875, 28217.06640625, 28216.345703125, 28215.685546875, 28215.169921875, 28214.658203125, 28214.080078125, 28213.5546875, 28213.068359375, 28212.48828125, 28211.947265625, 28211.427734375, 28210.927734375, 28210.4921875, 28209.982421875, 28209.466796875, 28209.04296875, 28208.56640625, 28208.154296875, 28207.744140625, 28207.306640625, 28206.890625, 28206.560546875, 28206.1015625, 28205.650390625, 28205.275390625, 28204.9765625, 28204.609375]
+[30169.626953125, 28766.5, 28260.65625, 28235.115234375, 28232.48828125, 28231.109375, 28231.2578125, 28230.537109375, 28230.896484375, 28231.4375, 28231.78515625, 28231.302734375, 28231.76171875, 28231.46875, 28231.208984375, 28231.609375, 28231.67578125]
+
+Model: 16, precision: 0.6049516609674264, recall: 0.6913265306122449, f_score: 0.7369136641740313

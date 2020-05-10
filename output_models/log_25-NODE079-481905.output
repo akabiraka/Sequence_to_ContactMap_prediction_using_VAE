@@ -1,0 +1,298 @@
+device= cuda
+batch_size= 40
+n_epochs= 70
+init_lr= 1e-06
+loss=BCE(sum) + 3KLD
+BasicVAE1(
+  (fc1): Linear(in_features=64, out_features=20, bias=True)
+  (encoder): Sequential(
+    (0): Conv2d(1, 64, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)
+    (1): LeakyReLU(negative_slope=0.2, inplace=True)
+    (2): Conv2d(64, 128, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)
+    (3): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (4): LeakyReLU(negative_slope=0.2, inplace=True)
+    (5): Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+    (6): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (7): LeakyReLU(negative_slope=0.2, inplace=True)
+    (8): Conv2d(256, 1024, kernel_size=(3, 3), stride=(2, 2), bias=False)
+    (9): LeakyReLU(negative_slope=0.2, inplace=True)
+  )
+  (fc2): Linear(in_features=1024, out_features=512, bias=True)
+  (fc31): Linear(in_features=512, out_features=50, bias=True)
+  (fc32): Linear(in_features=512, out_features=50, bias=True)
+  (decoder): Sequential(
+    (0): ConvTranspose2d(1024, 512, kernel_size=(4, 4), stride=(1, 1), bias=False)
+    (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): ConvTranspose2d(512, 256, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)
+    (4): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (5): ReLU(inplace=True)
+    (6): ConvTranspose2d(256, 128, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)
+    (7): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (8): ReLU(inplace=True)
+    (9): ConvTranspose2d(128, 1, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)
+    (10): Sigmoid()
+  )
+  (fc4): Linear(in_features=50, out_features=512, bias=True)
+  (fc5): Linear(in_features=512, out_features=1024, bias=True)
+  (relu): ReLU()
+)
+loading training dataset ... ...
+900  proteins in hand
+train dataset len:  308360
+train loader size:  7709
+successfully loaded training dataset ... ...
+loading validation dataset ... ...
+300  proteins in hand
+val dataset len: 111784
+val loader size:  2795
+successfully loaded validation dataset ... ...
+Starting epoch 1/71
+epoch:1/71, train_loss: 31143.1035156
+learning rate:  1e-06
+Starting epoch 2/71
+epoch:2/71, train_loss: 30555.5410156
+learning rate:  1e-06
+Starting epoch 3/71
+epoch:3/71, train_loss: 30474.2070312
+learning rate:  1e-06
+Starting epoch 4/71
+epoch:4/71, train_loss: 30146.3691406
+learning rate:  1e-06
+Starting testing epoch 4/71
+epoch:4/71, val_loss: 29991.1660156
+Updating best val loss: 29991.1660156
+Starting epoch 5/71
+epoch:5/71, train_loss: 29912.2890625
+learning rate:  1e-06
+Starting epoch 6/71
+epoch:6/71, train_loss: 29718.5722656
+learning rate:  1e-06
+Starting epoch 7/71
+epoch:7/71, train_loss: 29327.4667969
+learning rate:  1e-06
+Starting epoch 8/71
+epoch:8/71, train_loss: 28615.8964844
+learning rate:  1e-06
+Starting testing epoch 8/71
+epoch:8/71, val_loss: 28613.3691406
+Updating best val loss: 28613.3691406
+Starting epoch 9/71
+epoch:9/71, train_loss: 28615.4863281
+learning rate:  1e-06
+Starting epoch 10/71
+epoch:10/71, train_loss: 28615.4355469
+learning rate:  1e-06
+Starting epoch 11/71
+epoch:11/71, train_loss: 28615.4199219
+learning rate:  1e-06
+Starting epoch 12/71
+epoch:12/71, train_loss: 28394.4531250
+learning rate:  1e-06
+Starting testing epoch 12/71
+epoch:12/71, val_loss: 28387.2500000
+Updating best val loss: 28387.2500000
+Starting epoch 13/71
+epoch:13/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 14/71
+epoch:14/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 15/71
+epoch:15/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 16/71
+epoch:16/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting testing epoch 16/71
+epoch:16/71, val_loss: 28387.2500000
+Starting epoch 17/71
+epoch:17/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 18/71
+epoch:18/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 19/71
+epoch:19/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 20/71
+epoch:20/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting testing epoch 20/71
+epoch:20/71, val_loss: 28387.2500000
+Starting epoch 21/71
+epoch:21/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 22/71
+epoch:22/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 23/71
+epoch:23/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 24/71
+epoch:24/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting testing epoch 24/71
+epoch:24/71, val_loss: 28387.2500000
+Starting epoch 25/71
+epoch:25/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 26/71
+epoch:26/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 27/71
+epoch:27/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 28/71
+epoch:28/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting testing epoch 28/71
+epoch:28/71, val_loss: 28387.2500000
+Starting epoch 29/71
+epoch:29/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 30/71
+epoch:30/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 31/71
+epoch:31/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 32/71
+epoch:32/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting testing epoch 32/71
+epoch:32/71, val_loss: 28387.2500000
+Starting epoch 33/71
+epoch:33/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 34/71
+epoch:34/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 35/71
+epoch:35/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 36/71
+epoch:36/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting testing epoch 36/71
+epoch:36/71, val_loss: 28387.2500000
+Starting epoch 37/71
+epoch:37/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 38/71
+epoch:38/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 39/71
+epoch:39/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 40/71
+epoch:40/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting testing epoch 40/71
+epoch:40/71, val_loss: 28387.2500000
+Starting epoch 41/71
+epoch:41/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 42/71
+epoch:42/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 43/71
+epoch:43/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 44/71
+epoch:44/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting testing epoch 44/71
+epoch:44/71, val_loss: 28387.2500000
+Starting epoch 45/71
+epoch:45/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 46/71
+epoch:46/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 47/71
+epoch:47/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 48/71
+epoch:48/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting testing epoch 48/71
+epoch:48/71, val_loss: 28387.2500000
+Starting epoch 49/71
+epoch:49/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 50/71
+epoch:50/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 51/71
+epoch:51/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 52/71
+epoch:52/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting testing epoch 52/71
+epoch:52/71, val_loss: 28387.2500000
+Starting epoch 53/71
+epoch:53/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 54/71
+epoch:54/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 55/71
+epoch:55/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 56/71
+epoch:56/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting testing epoch 56/71
+epoch:56/71, val_loss: 28387.2500000
+Starting epoch 57/71
+epoch:57/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 58/71
+epoch:58/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 59/71
+epoch:59/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 60/71
+epoch:60/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting testing epoch 60/71
+epoch:60/71, val_loss: 28387.2500000
+Starting epoch 61/71
+epoch:61/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 62/71
+epoch:62/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 63/71
+epoch:63/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 64/71
+epoch:64/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting testing epoch 64/71
+epoch:64/71, val_loss: 28387.2500000
+Starting epoch 65/71
+epoch:65/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 66/71
+epoch:66/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 67/71
+epoch:67/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 68/71
+epoch:68/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting testing epoch 68/71
+epoch:68/71, val_loss: 28387.2500000
+Starting epoch 69/71
+epoch:69/71, train_loss: 28391.3164062
+learning rate:  1e-06
+Starting epoch 70/71
+epoch:70/71, train_loss: 28391.3164062
+learning rate:  1e-06
+[31143.103515625, 30555.541015625, 30474.20703125, 30146.369140625, 29912.2890625, 29718.572265625, 29327.466796875, 28615.896484375, 28615.486328125, 28615.435546875, 28615.419921875, 28394.453125, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625, 28391.31640625]
+[29991.166015625, 28613.369140625, 28387.25, 28387.25, 28387.25, 28387.25, 28387.25, 28387.25, 28387.25, 28387.25, 28387.25, 28387.25, 28387.25, 28387.25, 28387.25, 28387.25, 28387.25]

@@ -1,0 +1,4 @@
+slurmstepd: error: get_exit_code task 0 died by signal
+
+
+Model: 15, precision: 0.7289877192255828, recall: 0.6301020408163265, f_score: 0.762345679012345
