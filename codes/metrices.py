@@ -77,8 +77,8 @@ class Metrices(object):
                 # print(x.shape, y.shape, y_prime.shape)
                 self.compute_result_contact_map(
                     result_contact_map_tensor, y_prime, s1_from_idx, s1_to_idx, s2_from_idx, s2_to_idx)
-        # Utility.plot_images(
-        #     [result_contact_map_tensor, contact_map_tensor], pdb_code + str(model_no), cols=2, save_plt=self.save_plt)
+        # Utility.plot_images([contact_map_tensor], pdb_code + "_real_", cols=1, save_plt=self.save_plt)
+        # Utility.plot_images([result_contact_map_tensor], pdb_code + "_" + str(model_no), cols=1, save_plt=self.save_plt)
         return result_contact_map_tensor, contact_map_tensor
 
     def compute_result_contact_map(self, contact_map, y_prime, s1_from_idx, s1_to_idx, s2_from_idx, s2_to_idx):
@@ -112,7 +112,7 @@ class Metrices(object):
 
 
 # use 14 or 16
-models = [14, 16]  # theses doing nothing:, 15, 17, 24, 25, 26]
+models = [17]  # theses doing nothing:, 15, 17, 24, 25, 26]
 for model_no in models:
     metrices = Metrices(
         model_path="../output_models/best_model_{}.pth".format(model_no))
