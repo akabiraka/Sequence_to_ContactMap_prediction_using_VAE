@@ -135,3 +135,6 @@ dmypy.json
 *.fasta
 *.pt
 .vscode/
+
+# ignoring best models in output
+output_models/best_model*
