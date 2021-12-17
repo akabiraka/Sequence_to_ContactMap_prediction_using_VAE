@@ -1,4 +1,5 @@
 # Protein Sequence to Contact-map Prediction useing Varietional-Autoencoder.
+The details of the project can be found at [report](https://github.com/akabiraka/Sequence_to_ContactMap_prediction_using_VAE/blob/master/report/cs747_final_report.pdf) and [presentation](https://github.com/akabiraka/Sequence_to_ContactMap_prediction_using_VAE/blob/master/report/cs747_final_presentation.pdf).
 
 ## Overview of directories
 1. "codes/" contains all codes to run this project.
