@@ -1,5 +1,4 @@
-# Project title
-Protein Sequence to Contact-map Prediction useing Varietional-Autoencoder.
+# Protein Sequence to Contact-map Prediction useing Varietional-Autoencoder.
 
 ## Overview of directories
 1. "codes/" contains all codes to run this project.
